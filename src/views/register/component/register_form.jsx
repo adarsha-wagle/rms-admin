@@ -19,7 +19,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Logo from 'src/components/ui/logo';
 import Iconify from 'src/components/iconify';
 
-import { registerRestaurantAsync } from 'src/redux/authSlice';
+import { registerRestaurantAsync } from 'src/redux/api/auth_slice_api';
 // import { action } from 'src/theme/palette';
 import { useRouter } from 'src/routes/hooks';
 import { Button } from '@mui/material';
@@ -104,7 +104,7 @@ export default function RegisterForm() {
         <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
           <Card
             sx={{
-              p: 5,
+              p: { xs: 2, sm: 5 },
               width: 1,
               maxWidth: 'md',
             }}

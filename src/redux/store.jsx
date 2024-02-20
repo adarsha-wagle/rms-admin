@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import menuReducer from './menuSlice';
 import tableReducer from './tableSlice';
-import authReducer from './authSlice';
+import authReducer from './api/auth_slice_api';
 import orderReducer from './orderSlice';
 import appReducer from './appSlice';
 

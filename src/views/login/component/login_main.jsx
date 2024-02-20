@@ -13,11 +13,14 @@ function LoginMain() {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        flexDirection: { xs: 'column', md: 'row' },
       }}
     >
-      <LoginImage />
-      <LoginForm />
+      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+        <LoginImage />
+      </Box>
+      <Box sx={{ flexGrow: '1' }}>
+        <LoginForm />
+      </Box>
     </Box>
   );
 }

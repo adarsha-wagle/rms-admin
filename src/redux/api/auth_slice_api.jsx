@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import { BASE_URL } from 'src/config/base_url';
+// import { apiSlice } from './apiSlice';
 
 const initialState = {
   userName: '',
@@ -22,6 +23,39 @@ const initialState = {
 
   isLogoutLoading: false,
 };
+
+// export const authApiSlice = apiSlice.injectEndpoints({
+//   endpoints: (builder) => ({
+//     checkAuthAsync: builder.query({
+//       query: () => '/user/isLoggedIn',
+//       transformResponse: (response) => response?.data,
+//     }),
+//     loginRestaurantAsync: builder.mutation({
+//       query: (data) => ({
+//         url: '/user/login',
+//         method: 'POST',
+//         body: data,
+//       }),
+//       transformResponse: (response) => response?.data,
+//     }),
+//     registerRestaurantAsync: builder.mutation({
+//       query: (data) => ({
+//         url: '/user/register',
+//         method: 'POST',
+//         body: data,
+//       }),
+//       transformResponse: (response) => response?.data,
+//     }),
+//     logoutAsync: builder.mutation({
+//       query: (data) => ({
+//         url: '/user/logout',
+//         method: 'POST',
+//         body: data,
+//       }),
+//       transformResponse: (response) => response?.data,
+//     }),
+//   }),
+// });
 
 // CHECK IF RESTAURANT IS LOGGEND IN OR NOT
 export const checkAuthAsync = createAsyncThunk(
