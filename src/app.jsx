@@ -22,7 +22,6 @@ export const OrderPage = lazy(() => import('src/pages/orders_page'));
 export const MenuPage = lazy(() => import('src/pages/menu'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const RegisterPage = lazy(() => import('src/pages/register_page'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
@@ -39,7 +38,6 @@ export default function App() {
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<IndexPage />} />
             <Route path="/itemlist" element={<ItemListPage />} />
-            <Route path="/products" element={<ProductsPage />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/table" element={<TablePage />} />
             <Route path="/order" element={<OrderPage />} />

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import { BASE_URL } from 'src/config/base_url';
-// import { apiSlice } from './apiSlice';
 
 const initialState = {
   userName: '',
@@ -29,6 +28,11 @@ const initialState = {
 //     checkAuthAsync: builder.query({
 //       query: () => '/user/isLoggedIn',
 //       transformResponse: (response) => response?.data,
+//       baseQuery: (args, api, extraOptions) =>
+//         api.baseQuery(args, {
+//           ...extraOptions,
+//           credentials: 'include',
+//         }),
 //     }),
 //     loginRestaurantAsync: builder.mutation({
 //       query: (data) => ({
@@ -80,7 +84,7 @@ export const loginRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/user/login`, data, { withCredentials: true });
+      const response = await axios.post(`${BASE_URL}/user/login`, data);
       if (response.status === 200) {
         toast.success('🍜 Login Success !', {
           position: 'top-right',
@@ -251,4 +255,12 @@ const authSlice = createSlice({
       });
   },
 });
+
+// export const {
+//   useCheckAuthAsyncQuery,
+//   useLoginRestaurantAsyncMutation,
+//   useRegisterRestaurantAsyncMutation,
+//   useLogoutAsyncMutation,
+// } = authApiSlice;
+
 export default authSlice.reducer;
