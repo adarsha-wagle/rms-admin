@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -15,33 +15,40 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Iconify from 'src/components/iconify';
 
-import { loginRestaurantAsync } from 'src/redux/api/auth_slice_api';
+import { useLoginRestaurantMutation } from 'src/redux/api/auth_slice_api.test';
+import { setCredentials } from 'src/redux/actions/auth_slice.test';
 import { useRouter } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   //   const theme = useTheme();
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  const isLoginLoading = useSelector((state) => state.auth.isLoginLoading);
+  const router = useRouter();
 
-  function handleLogin(e) {
+  const [loginRestaurant, { isLoading: isLoginLoading }] = useLoginRestaurantMutation();
+
+  async function handleLogin(e) {
     e.preventDefault();
     const data = {
       email: phoneNumber,
       password,
     };
-    dispatch(loginRestaurantAsync(data)).then((res) => {
-      if (loginRestaurantAsync.fulfilled.match(res)) {
-        router.push('/');
-      }
-    });
+
+    try {
+      const { accessToken } = await loginRestaurant(data).unwrap();
+      dispatch(setCredentials({ accessToken }));
+      setPhoneNumber('');
+      setPassword('');
+      router.push('/');
+    } catch (err) {
+      console.log('Login error', err);
+    }
   }
 
   return (

@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import ShowLoader from 'src/components/ui/show_loader';
+
 function RootLayout() {
-  return <Outlet />;
+  return (
+    <Suspense fallback={<ShowLoader />}>
+      <Outlet />
+    </Suspense>
+  );
 }
 export default RootLayout;

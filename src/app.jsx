@@ -15,12 +15,12 @@ import DashboardLayout from './layouts/dashboard';
 import PrivateRoute from './routes/private_route';
 import RootLayout from './layouts/root/root_layout';
 
-export const IndexPage = lazy(() => import('src/pages/app'));
-export const TablePage = lazy(() => import('src/pages/table'));
+export const IndexPage = lazy(() => import('src/pages/app_page'));
+export const TablePage = lazy(() => import('src/pages/table_page'));
 export const ItemListPage = lazy(() => import('src/pages/item_page'));
 export const OrderPage = lazy(() => import('src/pages/orders_page'));
-export const MenuPage = lazy(() => import('src/pages/menu'));
-export const LoginPage = lazy(() => import('src/pages/login'));
+export const MenuPage = lazy(() => import('src/pages/menu_page'));
+export const LoginPage = lazy(() => import('src/pages/login_page'));
 export const RegisterPage = lazy(() => import('src/pages/register_page'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 

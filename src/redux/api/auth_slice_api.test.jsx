@@ -7,7 +7,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       query: () => '/user/isLoggedIn',
       transformResponse: (response) => response?.data,
     }),
-    loginRestaurantAsync: builder.mutation({
+    loginRestaurant: builder.mutation({
       query: (data) => ({
         url: '/user/login',
         method: 'POST',
@@ -15,7 +15,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (response) => response?.data,
     }),
-    registerRestaurantAsync: builder.mutation({
+    registerRestaurant: builder.mutation({
       query: (data) => ({
         url: '/user/register',
         method: 'POST',
@@ -41,12 +41,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    refreshToken: builder.mutation({
+      query: () => ({
+        url: '/refresh',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
 export const {
   useCheckAuthAsyncQuery,
-  useLoginRestaurantAsyncMutation,
-  useRegisterRestaurantAsyncMutation,
-  useLogoutAsyncMutation,
+  useLoginRestaurantMutation,
+  useRegisterRestaurantMutation,
+  useSendLogoutMutation,
 } = authApiSlice;
