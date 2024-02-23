@@ -56,7 +56,6 @@ export default function RegisterForm() {
 
   const handleRegister = (e) => {
     const formData = new FormData();
-
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -77,7 +76,7 @@ export default function RegisterForm() {
     formData.append('restaurantUserName', restaurantUserName);
     formData.append('ownerName', ownerName);
     formData.append('ownerEmail', ownerEmail);
-    formData.append('ownerPhoneNumber', ownerPhoneNumber);
+    formData.append('ownerPhone', ownerPhoneNumber);
     formData.append('password', password);
     formData.append('confirmPassword', confirmPassword);
 

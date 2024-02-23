@@ -23,44 +23,6 @@ const initialState = {
   isLogoutLoading: false,
 };
 
-// export const authApiSlice = apiSlice.injectEndpoints({
-//   endpoints: (builder) => ({
-//     checkAuthAsync: builder.query({
-//       query: () => '/user/isLoggedIn',
-//       transformResponse: (response) => response?.data,
-//       baseQuery: (args, api, extraOptions) =>
-//         api.baseQuery(args, {
-//           ...extraOptions,
-//           credentials: 'include',
-//         }),
-//     }),
-//     loginRestaurantAsync: builder.mutation({
-//       query: (data) => ({
-//         url: '/user/login',
-//         method: 'POST',
-//         body: data,
-//       }),
-//       transformResponse: (response) => response?.data,
-//     }),
-//     registerRestaurantAsync: builder.mutation({
-//       query: (data) => ({
-//         url: '/user/register',
-//         method: 'POST',
-//         body: data,
-//       }),
-//       transformResponse: (response) => response?.data,
-//     }),
-//     logoutAsync: builder.mutation({
-//       query: (data) => ({
-//         url: '/user/logout',
-//         method: 'POST',
-//         body: data,
-//       }),
-//       transformResponse: (response) => response?.data,
-//     }),
-//   }),
-// });
-
 // CHECK IF RESTAURANT IS LOGGEND IN OR NOT
 export const checkAuthAsync = createAsyncThunk(
   'auth/checkAuthAsync',
@@ -122,7 +84,7 @@ export const registerRestaurantAsync = createAsyncThunk(
   'auth/registerRestaurantAsync',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/user/register`, formData);
+      const response = await axios.post(`${BASE_URL}/user/owner/register`, formData);
       if (response.status === 200) {
         toast.success('🍜 Registration Success  !', {
           position: 'top-right',

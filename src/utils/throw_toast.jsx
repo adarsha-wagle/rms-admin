@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
  *
  */
 
-export const throwSuccessToast = (message) => {
+export const throwToastSuccess = (message) => {
   if (!message) return;
   toast.success(`🍜 ${message}`, {
     position: 'top-right',
@@ -28,9 +28,8 @@ export const throwSuccessToast = (message) => {
  *
  */
 
-export const throwErrorToast = (message) => {
+export const throwToastError = (message) => {
   if (!message) return;
-
   toast.error(`⚠ ${message}`, {
     position: 'top-right',
     autoClose: 1200,

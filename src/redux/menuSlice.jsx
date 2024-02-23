@@ -7,7 +7,116 @@ import { BASE_URL } from '../config/base_url';
 const initialState = {
   isCategoryListLoading: false,
   categoryListError: null,
-  categoryList: [],
+  categoryList: [
+    {
+      _id: '65cc51268084e1c0152f8b31',
+      name: 'Biryani King',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc537b1a25bc8006953b4f',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc5776fdde8d4c15ec5987',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc57c6b09faa99459284ae',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc586764d5629908597a5f',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc597ba348b87c7caaf0db',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc618fdd920b6c80cdc486',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc6a29fb53d33a8acfc79c',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65cc6a5004a3f70e647c559e',
+      name: 'Drinks',
+      description: 'Nepali authentic Drinks',
+      imageLink: [],
+    },
+    {
+      _id: '65ccc3048c36961c0b46b524',
+      name: 'Bhat',
+      description: 'Nepali authentic Bhat',
+      imageLink: [],
+    },
+    {
+      _id: '65d321099e3938cdc8145265',
+      name: 'Coffee',
+      description: 'Handmade coffe from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d327d890b7c1b2096686c5',
+      name: 'Beer',
+      description: 'Handmade coffe from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d33978d1acaa314ddca83c',
+      name: 'Wine',
+      description: 'Handmade coffe from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d5b17d206a096deb919992',
+      name: 'Coffee',
+      description: 'Handmade coffee from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d5b344cadae1e154715584',
+      name: 'Coffee',
+      description: 'Handmade coffee from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d5b346cadae1e154715586',
+      name: 'Coffee',
+      description: 'Handmade coffee from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d5b347cadae1e154715588',
+      name: 'Coffee',
+      description: 'Handmade coffee from himalayan Region',
+      imageLink: [],
+    },
+    {
+      _id: '65d5b359cadae1e15471558a',
+      name: 'Chiyus',
+      description: 'Handmade coffee from himalayan Region',
+      imageLink: [],
+    },
+  ],
 
   // states when adding new category
   isCategoryLoading: false,
@@ -22,7 +131,7 @@ export const fetchCategoryListAsync = createAsyncThunk(
   'menu/fetchCategoryListAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/category`, {
+      const response = await axios.get(`${BASE_URL}/private/menu/category`, {
         withCredentials: true,
       });
       console.log('category list response ', response);
@@ -41,7 +150,7 @@ export const fetchFoodItemListAsync = createAsyncThunk(
   async ({ categoryId }, { rejectWithValue }) => {
     try {
       console.log('categoryid for food item', categoryId);
-      const response = await axios.get(`${BASE_URL}/menu/item/${categoryId}`, {
+      const response = await axios.get(`${BASE_URL}/private/menu/item/${categoryId}`, {
         withCredentials: true,
       });
       console.log(response);
@@ -61,7 +170,7 @@ export const addNewCategoryAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/menu/category`, data, {
+      const response = await axios.post(`${BASE_URL}/private/menu/category`, data, {
         withCredentials: true,
       });
       if (response.status === 200) {
@@ -98,7 +207,7 @@ export const editCategoryAsync = createAsyncThunk(
   'menu/editCategoryAsync',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${BASE_URL}/menu/category`, data, {
+      const response = await axios.patch(`${BASE_URL}/private/menu/category`, data, {
         withCredentials: true,
       });
       if (response.status === 200) {
@@ -138,7 +247,7 @@ export const addNewFoodItem = createAsyncThunk(
     console.log([...formData.entries()]);
 
     try {
-      const response = await axios.post(`${BASE_URL}/menu/item`, formData, {
+      const response = await axios.post(`${BASE_URL}/private/menu/item`, formData, {
         withCredentials: true,
       });
       console.log('new item response', response);

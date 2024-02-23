@@ -12,3 +12,12 @@
   background-color: #303e4d !important;
   rotate: 5deg !important;
 }
+
+/* Remove Scroll Bar */
+.no__scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.no__scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
