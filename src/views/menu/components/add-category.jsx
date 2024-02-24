@@ -10,8 +10,8 @@ function AddCategory() {
   const handleCategorySubmit = (e) => {
     e.preventDefault();
     const data = {
-      category,
-      categoryDescription: '',
+      name: category,
+      description: '',
     };
     dispatch(addNewCategoryAsync(data)).then((res) => {
       if (addNewCategoryAsync.fulfilled.match(res)) {

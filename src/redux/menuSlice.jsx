@@ -52,7 +52,7 @@ export const addNewCategoryAsync = createAsyncThunk(
         withCredentials: true,
       });
       if (response.status === 200) {
-        throwToastSuccess('🍜 Category Added Successfully!');
+        throwToastSuccess('🍜 Category Added!');
 
         return response.data;
       }
