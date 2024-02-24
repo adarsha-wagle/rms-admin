@@ -287,7 +287,7 @@ const menuSlice = createSlice({
       // ---------------- START FOOD ITEM CRUD -----------------------
 
       .addCase(fetchFoodItemListAsync.pending, (state) => {
-        state.foodItemList = null;
+        state.foodItemList = [];
         state.isFoodItemLoading = true;
       })
       .addCase(fetchFoodItemListAsync.fulfilled, (state, action) => {
@@ -296,7 +296,7 @@ const menuSlice = createSlice({
       })
       .addCase(fetchFoodItemListAsync.rejected, (state, action) => {
         state.isFoodItemLoading = false;
-        state.foodItemList = null;
+        state.foodItemList = [];
         state.foodItemError = action.payload?.data;
       })
 
