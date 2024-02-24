@@ -23,6 +23,13 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
     dispatch(fetchCategoryListAsync());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (categoryList) {
+      setSelectedCategoryId(categoryList[0]?._id);
+      setSelectedCategoryName(categoryList[0]?.name);
+    }
+  }, [categoryList, setSelectedCategoryId, setSelectedCategoryName]);
+
   function filterCategoryItem(id, name) {
     setSelectedCategoryId(id);
     setSelectedCategoryName(name);

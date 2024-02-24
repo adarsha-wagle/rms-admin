@@ -12,7 +12,7 @@ import {
   editFoodItemImageById,
 } from 'src/redux/menuSlice';
 
-import { compressImage } from 'src/utils/image_compressor';
+// import { compressImage } from 'src/utils/image_compressor';
 
 import FoodCard from 'src/components/cards/food_card';
 import DeletePopup from 'src/components/popup/delete_popup';
@@ -76,20 +76,22 @@ function ItemList({ selectedCategoryId }) {
     // setOpenEditDialog(false);
   };
 
-  // Edit Selected Category Image //todo call api
+  // Edit Selected Category Image
   const handleEditItemImage = (itemImage) => {
     console.log('item image', itemImage);
     try {
-      const compressedImage = compressImage(itemImage);
+      // todo show promise toast
+      // const compressedImage = compressImage(itemImage);
       const formData = new FormData();
-      formData.append('image', compressedImage);
+
+      formData.append('image', itemImage);
       dispatch(editFoodItemImageById({ formData, foodItemId: selectedItem._id })).then((res) => {
         if (editFoodItemImageById.fulfilled.match(res)) {
           console.log('Image edited'); // todo
         }
       });
     } catch (err) {
-      console.log('error', err);
+      console.error('Image Compression Error', err);
     }
   };
 
