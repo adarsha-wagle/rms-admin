@@ -48,10 +48,22 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function EditPopupItem({ handleEditDialogClose, handleEditItem, selectedItem }) {
+function EditPopupItem({
+  handleEditDialogClose,
+  handleEditItem,
+  selectedItem,
+  handleEditItemImage,
+}) {
   const [changedData, setChangedData] = useState({});
 
   const [initialData, setInitialData] = useState(selectedItem);
+  const [itemImage, setItemImage] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setItemImage(file);
+    setInitialData({ ...initialData, imageLink: URL.createObjectURL(file) });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +78,7 @@ function EditPopupItem({ handleEditDialogClose, handleEditItem, selectedItem }) 
   };
 
   const handleEditTrigger = () => {
+    if (!changedData) return;
     handleEditItem(changedData);
   };
 
@@ -75,6 +88,38 @@ function EditPopupItem({ handleEditDialogClose, handleEditItem, selectedItem }) 
       <Divider />
       <Box sx={{ mt: '1rem' }}>
         <Grid container rowSpacing={2} columnSpacing={2}>
+          <Grid item xs={12} sm={6}>
+            <img
+              src={initialData?.imageLink || ''}
+              alt={initialData?.name || 'Not Found'}
+              style={{ width: '8rem', height: '6rem', borderRadius: '1rem' }}
+            />
+            <TextField
+              type="file"
+              variant="outlined"
+              name="name"
+              size="small"
+              sx={{ my: '0.5rem' }}
+              onChange={handleFileChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} sx={{ position: 'relative' }}>
+            <Button
+              variant="contained"
+              sx={{
+                position: { sm: 'absolute' },
+                bottom: '0.5rem',
+                backgroundColor: 'info.darker',
+              }}
+              disabled={!itemImage}
+              onClick={() => handleEditItemImage(itemImage)}
+            >
+              Change Image
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>{' '}
           <Grid item xs={12} sm={6}>
             <TextField
               variant="outlined"
@@ -113,23 +158,11 @@ function EditPopupItem({ handleEditDialogClose, handleEditItem, selectedItem }) 
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              variant="outlined"
-              label="Discount Percent"
-              name="discountPecentage"
-              value={initialData?.discountPercentage || ''}
-              onChange={handleInputChange}
-              fullWidth
-              size="small"
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
             <FormControlLabel
               control={
                 <Android12Switch
                   name="isAvailable"
-                  checked={initialData?.isAvailable || false}
+                  checked={initialData?.flags?.isAvailable || false}
                   onChange={handleCheckboxChange}
                 />
               }
@@ -174,4 +207,5 @@ EditPopupItem.propTypes = {
   handleEditDialogClose: PropTypes.func,
   handleEditItem: PropTypes.func,
   selectedItem: PropTypes.object,
+  handleEditItemImage: PropTypes.func,
 };

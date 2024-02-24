@@ -10,7 +10,7 @@ function DeletePopup({ handleDeleteClick, handleCloseClick, deleteMessage }) {
       <Typography variant="subtitle1">Confirm Delete</Typography>
       <Divider />
       <Box sx={{ mt: '0.5rem' }}>
-        <Typography variant="subtitle2">Are sure you want to delete ? {deleteMessage}</Typography>
+        <Typography variant="subtitle2">Are you sure want to delete ? {deleteMessage}</Typography>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
           <Button sx={{ color: 'warning.contrastText' }} onClick={handleCloseClick}>
             Cancel

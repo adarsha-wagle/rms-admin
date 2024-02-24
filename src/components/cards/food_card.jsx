@@ -123,7 +123,7 @@ export default FoodCard;
 FoodCard.propTypes = {
   foodName: PropTypes.string,
   price: PropTypes.number,
-  discountPercentage: PropTypes.number,
+  discountPercentage: PropTypes.string,
   description: PropTypes.string,
   imagePreview: PropTypes.string,
 };

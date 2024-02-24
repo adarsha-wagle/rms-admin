@@ -12,14 +12,16 @@ const initialState = {
 
 export const deleteCategoryById = createAsyncThunk(
   'items/deleteCategoryById',
-  async (_, { rejectWithValue }) => {
+  async (categoryId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/order/stats`, { withCredentials: true });
+      const response = await axios.delete(`${BASE_URL}/private/menu/category/${categoryId}`, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Unable To get';
+      const errorMessage = err?.response?.data?.message || 'Unable to get';
 
       return rejectWithValue(errorMessage);
     }
@@ -28,9 +30,11 @@ export const deleteCategoryById = createAsyncThunk(
 );
 export const deleteFoodItemById = createAsyncThunk(
   'items/deleteFoodItemById',
-  async (_, { rejectWithValue }) => {
+  async (foodItemId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/order/stats`, { withCredentials: true });
+      const response = await axios.delete(`${BASE_URL}/private/menu/item/${foodItemId}`, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         return response.data;
       }
@@ -44,9 +48,11 @@ export const deleteFoodItemById = createAsyncThunk(
 );
 export const editCategoryById = createAsyncThunk(
   'items/editCategoryById',
-  async (_, { rejectWithValue }) => {
+  async (categoryId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/order/stats`, { withCredentials: true });
+      const response = await axios.delete(`${BASE_URL}/private/menu/category/${categoryId}`, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         return response.data;
       }
@@ -60,9 +66,11 @@ export const editCategoryById = createAsyncThunk(
 );
 export const editFoodItemById = createAsyncThunk(
   'items/editFoodItemById',
-  async (_, { rejectWithValue }) => {
+  async (foodItemId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/order/stats`, { withCredentials: true });
+      const response = await axios.delete(`${BASE_URL}/private/menu/item/${foodItemId}`, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         return response.data;
       }

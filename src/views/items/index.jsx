@@ -6,10 +6,10 @@ import CategoryList from './component/category_list';
 import ItemList from './component/item_list';
 
 function ItemListView() {
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}>
       <CategoryList
         selectedCategoryId={selectedCategoryId}
         setSelectedCategoryId={setSelectedCategoryId}

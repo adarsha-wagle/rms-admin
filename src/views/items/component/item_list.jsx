@@ -5,7 +5,14 @@ import { Box, Dialog, DialogContent, Grid, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { fetchFoodItemListAsync } from 'src/redux/menuSlice';
+import {
+  deleteFoodItemById,
+  fetchFoodItemListAsync,
+  editFoodItemById,
+  editFoodItemImageById,
+} from 'src/redux/menuSlice';
+
+import { compressImage } from 'src/utils/image_compressor';
 
 import FoodCard from 'src/components/cards/food_card';
 import DeletePopup from 'src/components/popup/delete_popup';
@@ -46,21 +53,48 @@ function ItemList({ selectedCategoryId }) {
     setOpenDeleteDialog(false);
   };
 
-  // Delete Selected Category Item // todo call api
+  // Delete Selected Category Item
   const handleDeleteItem = () => {
     console.log('delete category id', selectedItem);
-    // setOpenDeleteDialog(true);
+    dispatch(deleteFoodItemById({ foodItemId: selectedItem?._id })).then((res) => {
+      if (deleteFoodItemById.fulfilled.match(res)) {
+        handleDeleteDialogClose();
+      }
+    });
   };
 
   // Edit Selected Category Item // todo call api
   const handleEditItem = (changedData) => {
     console.log('edit category id', selectedItem);
     console.log('changed data', changedData);
+
+    dispatch(editFoodItemById({ foodItemId: selectedItem?._id, changedData })).then((res) => {
+      if (editFoodItemById.fulfilled.match(res)) {
+        handleEditDialogClose();
+      }
+    });
     // setOpenEditDialog(false);
   };
 
+  // Edit Selected Category Image //todo call api
+  const handleEditItemImage = (itemImage) => {
+    console.log('item image', itemImage);
+    try {
+      const compressedImage = compressImage(itemImage);
+      const formData = new FormData();
+      formData.append('image', compressedImage);
+      dispatch(editFoodItemImageById({ formData, foodItemId: selectedItem._id })).then((res) => {
+        if (editFoodItemImageById.fulfilled.match(res)) {
+          console.log('Image edited'); // todo
+        }
+      });
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
   return (
-    <Box sx={{ height: '35rem', flexGrow: '1' }}>
+    <Box sx={{ height: '80vh', flexGrow: '1', overflow: 'auto' }} className="no__scrollbar">
       <Grid container sx={{ mt: 4 }} justifyContent="flex-start" alignContent="flex-start">
         {foodItemList.map((foodItem, index) => (
           <Grid
@@ -68,7 +102,7 @@ function ItemList({ selectedCategoryId }) {
             key={foodItem._id}
             xs={12}
             md={6}
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 1.5 }}
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 2 }}
           >
             <FoodCard
               imagePreview={foodItem?.imageLink || ''}
@@ -102,6 +136,7 @@ function ItemList({ selectedCategoryId }) {
             handleEditDialogClose={handleEditDialogClose}
             handleEditItem={handleEditItem}
             selectedItem={selectedItem}
+            handleEditItemImage={handleEditItemImage}
           />
         </DialogContent>
       </Dialog>

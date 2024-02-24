@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { Flip, ToastContainer } from 'react-toastify';
+import { withProfiler } from '@sentry/react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'src/global.css';
@@ -30,7 +31,7 @@ const ROLES = {
   ADMIN: 'admin',
 };
 
-export default function App() {
+function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
@@ -71,3 +72,5 @@ export default function App() {
     </div>
   );
 }
+
+export default withProfiler(App);

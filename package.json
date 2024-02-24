@@ -28,6 +28,7 @@
     "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.14.12",
     "@reduxjs/toolkit": "^1.9.7",
+    "@sentry/react": "^7.102.1",
     "apexcharts": "^3.43.0",
     "axios": "^1.6.0",
     "browser-image-compression": "^2.0.2",

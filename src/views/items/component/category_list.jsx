@@ -5,7 +5,7 @@ import { Box, Typography, Card, IconButton, Divider, Dialog, DialogContent } fro
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-import { fetchCategoryListAsync } from 'src/redux/menuSlice';
+import { deleteCategoryById, editCategoryById, fetchCategoryListAsync } from 'src/redux/menuSlice';
 
 import DeletePopup from 'src/components/popup/delete_popup';
 import CategoryItem from './category_item';
@@ -30,31 +30,44 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
 
   // Close Delete Dialog
   const handleDeleteDialogClose = () => {
+    setSelectedCategoryId(null);
     setOpenDeleteDialog(false);
   };
   // Close Edit Dialog
   const handleEditDialogClose = () => {
+    setSelectedCategoryId(null);
     setOpenEditDialog(false);
   };
 
-  // Delete Selected Category Item // todo call api
+  // Delete Selected Category Item
   const handleDeleteCategoryItem = () => {
     console.log('delete category id', selectedCategoryId);
     setOpenDeleteDialog(true);
+    dispatch(deleteCategoryById({ categoryId: selectedCategoryId })).then((res) => {
+      if (deleteCategoryById.fulfilled.match(res)) {
+        handleDeleteDialogClose();
+      }
+    });
   };
 
-  // Edit Selected Category Item // todo call api
+  // Edit Selected Category Item
   const handleEditCategoryItem = (categoryName) => {
-    console.log('edit category id', selectedCategoryId, categoryName);
+    dispatch(editCategoryById({ categoryId: selectedCategoryId, name: categoryName })).then(
+      (res) => {
+        if (editCategoryById.fulfilled.match(res)) {
+          handleEditDialogClose();
+        }
+      }
+    );
     // setOpenEditDialog(false);
   };
 
   return (
     <Box
       sx={{
-        height: '80vh',
-        minWidth: '18rem',
-        maxWidth: '20rem',
+        maxHeight: '80vh',
+        minWidth: '12rem',
+        maxWidth: { xs: '100%', sm: '20rem' },
         width: '100%',
         backgroundColor: 'white',
         p: 2,
@@ -70,7 +83,14 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
         Cateogory List
       </Typography>
       <Divider />
-      <Box sx={{ my: '1rem', overflow: 'auto' }}>
+      <Box
+        sx={{
+          my: '1rem',
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: { xs: 'row', sm: 'column' },
+        }}
+      >
         {categoryList?.map((category, index) => (
           <Card
             key={category._id}
@@ -82,6 +102,8 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              cursor: 'pointer',
+              minWidth: '10rem',
             }}
             onClick={() => filterCategoryItem(category?._id, category?.name)}
           >
@@ -102,7 +124,7 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
       <Dialog open={openDeleteDialog} maxWidth="xs" fullWidth sx={{ padding: '0' }}>
         <DialogContent sx={{ p: '0.5rem' }}>
           <DeletePopup
-            deleteMessage="You will be deleting all the items under this category"
+            deleteMessage="You need to delete all the items under this category."
             handleDeleteClick={handleDeleteCategoryItem}
             handleCloseClick={handleDeleteDialogClose}
           />
