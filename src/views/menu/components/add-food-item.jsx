@@ -144,7 +144,7 @@ function AddFoodItem() {
                 <TextField
                   type="number"
                   id="outlined-basic"
-                  label="Name"
+                  label="Percent"
                   variant="outlined"
                   size="small"
                   fullWidth
@@ -207,6 +207,7 @@ function AddFoodItem() {
               foodName={foodName}
               price={price}
               description={description}
+              discountPercentage={discountPercentage}
               imagePreview={imagePreview}
             />
           </Box>

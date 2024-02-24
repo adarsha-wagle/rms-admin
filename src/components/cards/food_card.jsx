@@ -13,23 +13,25 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const ExpandMore = styled((props) => {
-  const { ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
-function FoodCard({ imagePreview, description, price, foodName }) {
+function FoodCard({ imagePreview, description, price, foodName, discountPercentage }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const ExpandMore = styled((props) => {
+    const { ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
   return (
     <Card
@@ -71,6 +73,14 @@ function FoodCard({ imagePreview, description, price, foodName }) {
           >
             Rs. {price || '0'}
           </Typography>
+          {discountPercentage && (
+            <Typography
+              variant="body1"
+              sx={{ textAlign: 'right', fontWeight: '500', color: 'orange' }}
+            >
+              Off : {discountPercentage || '0'} %
+            </Typography>
+          )}
         </Box>
         <Box sx={{ mt: '0.8rem' }}>
           <Typography
@@ -96,7 +106,7 @@ function FoodCard({ imagePreview, description, price, foodName }) {
           aria-label="show more"
           sx={{ padding: '0' }}
         >
-          <ExpandMoreIcon />
+          {expanded ? <ExpandMoreIcon /> : <ExpandLessIcon />}
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -113,6 +123,7 @@ export default FoodCard;
 FoodCard.propTypes = {
   foodName: PropTypes.string,
   price: PropTypes.number,
+  discountPercentage: PropTypes.number,
   description: PropTypes.string,
   imagePreview: PropTypes.string,
 };

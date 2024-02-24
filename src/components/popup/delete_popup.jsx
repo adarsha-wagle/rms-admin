@@ -36,7 +36,7 @@ function DeletePopup({ handleDeleteClick, handleCloseClick, deleteMessage }) {
 export default DeletePopup;
 
 DeletePopup.propTypes = {
-  handleCloseClick: PropTypes.func,
-  handleDeleteClick: PropTypes.func,
+  handleCloseClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
   deleteMessage: PropTypes.string,
 };

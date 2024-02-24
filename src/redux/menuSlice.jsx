@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import axios from 'axios';
 
+import { throwToastSuccess, throwToastError } from 'src/utils/throw_toast';
 import { BASE_URL } from '../config/base_url';
 
 const initialState = {
@@ -139,7 +139,7 @@ export const fetchCategoryListAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.error || 'Something went wrong';
+      const errorMessage = err?.response?.data?.error || 'Could not fetch';
       return rejectWithValue(errorMessage);
     }
     return '';
@@ -174,30 +174,13 @@ export const addNewCategoryAsync = createAsyncThunk(
         withCredentials: true,
       });
       if (response.status === 200) {
-        toast.success('🍜 Category Added Successfully!', {
-          position: 'top-right',
-          autoClose: 1200,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        throwToastSuccess('🍜 Category Added Successfully!');
+
         return response.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.error || 'Failed to add category';
-      toast.error(`🍜 ${errorMessage}`, {
-        position: 'top-right',
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      throwToastError(errorMessage);
       return rejectWithValue(errorMessage);
     }
     return undefined;
@@ -211,30 +194,13 @@ export const editCategoryAsync = createAsyncThunk(
         withCredentials: true,
       });
       if (response.status === 200) {
-        toast.success('🍜 Category Edited Successfully!', {
-          position: 'top-right',
-          autoClose: 1200,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        throwToastSuccess('🍜 Category Edited Successfully!');
+
         return response.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.error || 'Failed to edit category';
-      toast.error(`🍜 ${errorMessage}`, {
-        position: 'top-right',
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      throwToastError(errorMessage);
       return rejectWithValue(errorMessage);
     }
     return undefined;
@@ -252,30 +218,13 @@ export const addNewFoodItem = createAsyncThunk(
       });
       console.log('new item response', response);
       if (response.status === 200) {
-        toast.success('🍜 Item Added Successfully!', {
-          position: 'top-right',
-          autoClose: 1200,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        throwToastSuccess('🍜 Item Added Successfully!');
+
         return response.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.error || 'Failed to add item';
-      toast.error(`🍜 ${errorMessage}`, {
-        position: 'top-right',
-        autoClose: 1200,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      throwToastError(errorMessage);
       return rejectWithValue(errorMessage);
     }
     return undefined;

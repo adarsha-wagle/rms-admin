@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Box, Button, Card, Divider, TextField, Typography } from '@mui/material';
 
-function EditCategoryPopup({ handleEditClick, handleCloseClick, selectedCategoryName }) {
+function EditPopupCategory({ handleEditClick, handleCloseClick, selectedCategoryName }) {
   const [categoryName, setCategoryName] = useState(selectedCategoryName || '');
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -75,9 +75,9 @@ function EditCategoryPopup({ handleEditClick, handleCloseClick, selectedCategory
   );
 }
 
-export default EditCategoryPopup;
+export default EditPopupCategory;
 
-EditCategoryPopup.propTypes = {
+EditPopupCategory.propTypes = {
   handleEditClick: PropTypes.func,
   handleCloseClick: PropTypes.func,
   selectedCategoryName: PropTypes.string,

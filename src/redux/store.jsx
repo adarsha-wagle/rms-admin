@@ -4,6 +4,7 @@ import tableReducer from './tableSlice';
 import authReducer from './api/auth_slice_api';
 import orderReducer from './orderSlice';
 import appReducer from './appSlice';
+import itemReducer from './itemsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     table: tableReducer,
     order: orderReducer,
     app: appReducer,
+    item: itemReducer,
   },
 });

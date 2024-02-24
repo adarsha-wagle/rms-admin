@@ -9,7 +9,7 @@ import { fetchCategoryListAsync } from 'src/redux/menuSlice';
 
 import DeletePopup from 'src/components/popup/delete_popup';
 import CategoryItem from './category_item';
-import EditCategoryPopup from './edit_category_popup';
+import EditPopupCategory from './edit_popup_category';
 
 function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
   const dispatch = useDispatch();
@@ -37,13 +37,13 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
     setOpenEditDialog(false);
   };
 
-  // Delete Category Item // todo call api
+  // Delete Selected Category Item // todo call api
   const handleDeleteCategoryItem = () => {
     console.log('delete category id', selectedCategoryId);
     setOpenDeleteDialog(true);
   };
 
-  // Edit Category Item // todo call api
+  // Edit Selected Category Item // todo call api
   const handleEditCategoryItem = (categoryName) => {
     console.log('edit category id', selectedCategoryId, categoryName);
     // setOpenEditDialog(false);
@@ -110,7 +110,7 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
       </Dialog>
       <Dialog open={openEditDialog} maxWidth="xs" fullWidth sx={{ padding: '0' }}>
         <DialogContent sx={{ p: '0.5rem' }}>
-          <EditCategoryPopup
+          <EditPopupCategory
             handleEditClick={handleEditCategoryItem}
             handleCloseClick={handleEditDialogClose}
             selectedCategoryName={selectedCategoryName}
