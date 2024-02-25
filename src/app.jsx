@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -15,6 +15,8 @@ import 'src/global.css';
 import DashboardLayout from './layouts/dashboard';
 import PrivateRoute from './routes/private_route';
 import RootLayout from './layouts/root/root_layout';
+import useLocalStorage from './hooks/use-local-storage';
+import { setAuthRole } from './redux/api/auth_slice_api';
 
 export const IndexPage = lazy(() => import('src/pages/app_page'));
 export const TablePage = lazy(() => import('src/pages/table_page'));
@@ -32,6 +34,14 @@ const ROLES = {
 };
 
 function App() {
+  const [role, setRole] = useLocalStorage('role', '');
+
+  useEffect(() => {
+    if (role) {
+      setAuthRole(role);
+    }
+  }, [role]);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>

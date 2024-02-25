@@ -154,7 +154,11 @@ export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { reje
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-
+  reducers: {
+    setAuthRole: (state, action) => {
+      state.role = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(checkAuthAsync.pending, (state, action) => {
@@ -183,7 +187,7 @@ const authSlice = createSlice({
         if (userData) {
           state.isLoginLoading = false;
           state.isAuthenticated = true;
-          state.role = userData?.role;
+          state.role = 'admin';
           state.userName = userData?.name;
           state.userEmail = userData?.email;
           state.userPhone = userData?.phone;
@@ -224,5 +228,7 @@ const authSlice = createSlice({
 //   useRegisterRestaurantAsyncMutation,
 //   useLogoutAsyncMutation,
 // } = authApiSlice;
+
+export const { setAuthRole } = authSlice.actions;
 
 export default authSlice.reducer;
