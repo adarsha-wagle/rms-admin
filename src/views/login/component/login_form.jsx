@@ -17,7 +17,6 @@ import Iconify from 'src/components/iconify';
 
 import { loginRestaurantAsync } from 'src/redux/api/auth_slice_api';
 import { useRouter } from 'src/routes/hooks';
-import useLocalStorage from 'src/hooks/use-local-storage';
 
 // ----------------------------------------------------------------------
 
@@ -32,8 +31,6 @@ export default function LoginForm() {
 
   const isLoginLoading = useSelector((state) => state.auth.isLoginLoading);
 
-  const [role, setRole] = useLocalStorage('role', '');
-
   function handleLogin(e) {
     e.preventDefault();
     const data = {
@@ -42,7 +39,7 @@ export default function LoginForm() {
     };
     dispatch(loginRestaurantAsync(data)).then((res) => {
       if (loginRestaurantAsync.fulfilled.match(res)) {
-        setRole('admin');
+        localStorage.setItem('role', 'admin');
         router.push('/');
       }
     });
