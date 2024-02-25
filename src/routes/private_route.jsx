@@ -8,7 +8,6 @@ function PrivateRoute({ allowedRoles }) {
 
   const role = JSON.parse(localStorage.getItem('role')) || '';
 
-  console.log('role', role);
   return allowedRoles.includes(role) ? (
     <Outlet />
   ) : (

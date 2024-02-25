@@ -39,7 +39,11 @@ export default function LoginForm() {
     };
     dispatch(loginRestaurantAsync(data)).then((res) => {
       if (loginRestaurantAsync.fulfilled.match(res)) {
-        localStorage.setItem('role', JSON.stringify('admin'));
+        try {
+          localStorage.setItem('role', JSON.stringify('admin'));
+        } catch (err) {
+          console.log('stringfy error', err);
+        }
         router.push('/');
       }
     });

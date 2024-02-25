@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNewCategoryAsync } from 'src/redux/menuSlice';
-import { useSelector } from 'react-redux';
 
 function AddCategory() {
   const dispatch = useDispatch();
