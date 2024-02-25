@@ -5,10 +5,23 @@ import PropTypes from 'prop-types';
 
 function PrivateRoute({ allowedRoles }) {
   const location = useLocation();
+  let parsedRole = '';
+  const role = localStorage.getItem('role') || '';
 
-  const role = JSON.parse(localStorage.getItem('role')) || '';
+  console.log('parsing role', role, typeof role);
 
-  return allowedRoles.includes(role) ? (
+  try {
+    if (role && typeof role === 'string') {
+      parsedRole = JSON.parse(role);
+    }
+  } catch (err) {
+    console.log('json parse error', err);
+    if (role) {
+      parsedRole = role;
+    }
+  }
+
+  return allowedRoles.includes(parsedRole) ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
