@@ -51,10 +51,11 @@ export const addNewCategoryAsync = createAsyncThunk(
       const response = await axios.post(`${BASE_URL}/private/menu/category`, data, {
         withCredentials: true,
       });
+      console.log('add cat', response);
       if (response.status === 200) {
         throwToastSuccess('🍜 Category Added!');
 
-        return response.data;
+        return response.data?.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.error || 'Failed to add category';
@@ -134,11 +135,11 @@ export const fetchFoodItemListAsync = createAsyncThunk(
 
 export const addNewFoodItem = createAsyncThunk(
   'menu/addNewFoodItem',
-  async (formData, { rejectWithValue }) => {
+  async ({ formData, categoryId }, { rejectWithValue }) => {
     console.log([...formData.entries()]);
 
     try {
-      const response = await axios.post(`${BASE_URL}/private/menu/item`, formData, {
+      const response = await axios.post(`${BASE_URL}/private/menu/${categoryId}/item`, formData, {
         withCredentials: true,
       });
       console.log('new item response', response);
@@ -248,10 +249,14 @@ const menuSlice = createSlice({
       })
       .addCase(addNewCategoryAsync.fulfilled, (state, action) => {
         state.isAddCategoryLoading = false;
+        const { _id, name, description, imageLink } = action.payload;
         const newCategory = {
-          id: action.payload?.data?._id,
-          name: action.payload?.data?.name,
+          _id,
+          name,
+          description,
+          imageLink,
         };
+        console.log('new category', newCategory);
         state.categoryList = [...state.categoryList, newCategory];
       })
       .addCase(addNewCategoryAsync.rejected, (state, action) => {

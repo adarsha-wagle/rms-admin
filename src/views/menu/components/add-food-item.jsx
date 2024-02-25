@@ -22,7 +22,7 @@ import { addNewFoodItem, fetchCategoryListAsync } from '../../../redux/menuSlice
 function AddFoodItem() {
   const dispatch = useDispatch();
   const [foodName, setFoodName] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [imagePreview, setImagePreview] = useState('');
@@ -40,13 +40,12 @@ function AddFoodItem() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', foodName);
-    formData.append('categoryId', selectedCategory);
     formData.append('price', price);
-    formData.append('itemImage', image);
-    formData.append('description', description);
-    formData.append('discountPercentage', discountPercentage);
 
-    dispatch(addNewFoodItem(formData));
+    formData.append('image', image);
+    formData.append('description', description);
+
+    dispatch(addNewFoodItem({ formData, categoryId: selectedCategoryId }));
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -113,8 +112,8 @@ function AddFoodItem() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Age"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    value={selectedCategoryId}
+                    onChange={(e) => setSelectedCategoryId(e.target.value)}
                   >
                     {renderMenuItem(isCategoryListLoading, categoryListError, categoryList)}
                   </Select>
