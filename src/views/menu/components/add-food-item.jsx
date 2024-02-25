@@ -46,7 +46,17 @@ function AddFoodItem() {
     formData.append('image', image);
     formData.append('description', description);
 
-    dispatch(addNewFoodItem({ formData, categoryId: selectedCategoryId }));
+    dispatch(addNewFoodItem({ formData, categoryId: selectedCategoryId })).then((res) => {
+      if (addNewFoodItem.fulfilled.match(res)) {
+        setFoodName('');
+        setSelectedCategoryId('');
+        setPrice('');
+        setImage(null);
+        setImagePreview('');
+        setDescription('');
+        setDiscountPercentage('');
+      }
+    });
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -193,7 +203,7 @@ function AddFoodItem() {
                   className="button__color--orange"
                   disabled={isFoodItemLoading}
                 >
-                  Add Item
+                  {isFoodItemLoading ? 'Adding Item.. ' : 'Add Item'}
                 </Button>
               </Grid>
             </Grid>
