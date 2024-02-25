@@ -30,6 +30,7 @@ function AddFoodItem() {
   const [discountPercentage, setDiscountPercentage] = useState('');
 
   const isCategoryListLoading = useSelector((state) => state.menu.isCategoryListLoading);
+  const isFoodItemLoading = useSelector((state) => state.menu.isFoodItemLoading);
   const categoryListError = useSelector((state) => state.menu.categoryListError);
   const categoryList = useSelector((state) => state.menu.categoryList);
   useEffect(() => {
@@ -186,7 +187,12 @@ function AddFoodItem() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" sx={{ ml: 'auto' }} className="button__color--orange">
+                <Button
+                  type="submit"
+                  sx={{ ml: 'auto' }}
+                  className="button__color--orange"
+                  disabled={isFoodItemLoading}
+                >
                   Add Item
                 </Button>
               </Grid>
@@ -222,7 +228,7 @@ const renderMenuItem = (isCategoryListLoading, categoryListError, categoryList) 
   if (isCategoryListLoading) return <MenuItem value="">Loading..</MenuItem>;
   if (categoryListError) return <MenuItem value="">{categoryListError}</MenuItem>;
   return categoryList.map((category, index) => (
-    <MenuItem key={index} value={category._id}>
+    <MenuItem key={category?._id} value={category._id}>
       {category.name}
     </MenuItem>
   ));

@@ -27,6 +27,8 @@ function ItemList({ selectedCategoryId }) {
 
   const foodItemList = useSelector((state) => state.menu.foodItemList);
 
+  const isFoodItemLoading = useSelector((state) => state.menu.isFoodItemLoading);
+
   useEffect(() => {
     dispatch(fetchFoodItemListAsync({ categoryId: selectedCategoryId }));
   }, [dispatch, selectedCategoryId]);
@@ -94,6 +96,9 @@ function ItemList({ selectedCategoryId }) {
       console.error('Image Compression Error', err);
     }
   };
+  if (isFoodItemLoading) return <h3>Loading...</h3>;
+
+  if (foodItemList?.length === 0) return <h2>No Items Added</h2>;
 
   return (
     <Box sx={{ height: '80vh', flexGrow: '1', overflow: 'auto' }} className="no__scrollbar">

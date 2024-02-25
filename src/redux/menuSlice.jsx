@@ -145,7 +145,6 @@ export const addNewFoodItem = createAsyncThunk(
       console.log('new item response', response);
       if (response.status === 200) {
         throwToastSuccess('🍜 Item Added Successfully!');
-
         return response.data;
       }
     } catch (err) {
