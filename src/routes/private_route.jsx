@@ -8,8 +8,7 @@ function PrivateRoute({ allowedRoles }) {
   let parsedRole = '';
   const role = localStorage.getItem('role') || '';
 
-  console.log('parsing role', role, typeof role);
-
+  // todo fix this (juggad method)
   try {
     if (role && typeof role === 'string') {
       parsedRole = JSON.parse(role);
