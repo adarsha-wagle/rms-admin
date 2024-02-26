@@ -53,7 +53,6 @@ function AddCategory() {
             disabled={isAddCategoryLoading}
           >
             {isAddCategoryLoading ? 'Adding Category' : 'Add Category'}
-            Add Category
           </Button>
         </Box>
       </form>
